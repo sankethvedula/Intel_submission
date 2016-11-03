@@ -3,9 +3,9 @@ require "nn"
 require "image"
 require "optim"
 
-train_data = torch.load("validation.t7")
+train_data = torch.load("train.t7")
 patch_size = 16
-number_of_images = 1000
+number_of_images = 3000
 
 table_of_patches = {}
 
@@ -36,4 +36,4 @@ local function create_patches(train_data,patch_size,number_of_images)
 end
 
 table_of_patches = create_patches(train_data,patch_size,number_of_images)
-torch.save("validation_table_of_patches.t7",table_of_patches)
+torch.save("table_of_patches.t7",table_of_patches)

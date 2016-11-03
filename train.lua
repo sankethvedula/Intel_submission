@@ -13,7 +13,7 @@ sx = 1+math.floor((input_patchsz - output_patchsz) / 2)
 sy = 1+math.floor((input_patchsz - output_patchsz) / 2)
 ex = math.floor((input_patchsz + output_patchsz) / 2)
 ey = math.floor((input_patchsz + output_patchsz) / 2)
-number_of_images = 2000
+number_of_images = 3000
 number_of_validation_images = 1000
 
 train_data_patches = torch.load("table_of_patches.t7")
@@ -73,6 +73,7 @@ local function single_epoch(mlp,criterion,train_data_patches,number_of_images,ba
   for i = 1, number_of_images-2 do
 
     image_1 = train_data_patches[i]
+    --print(image_1:size())
     image_2 = train_data_patches[i+1]
     image_3 = train_data_patches[i+2]
 
@@ -85,7 +86,7 @@ local function single_epoch(mlp,criterion,train_data_patches,number_of_images,ba
 
     count = count + 1
     optim_params = {learningRate = 0.01}
-    local _,errs = optim.sgd(feval,x,optim_params)
+    local _,errs = optim.adagrad(feval,x,optim_params)
     total_loss = total_loss + errs[1]
     --print(errs[1])
   end
